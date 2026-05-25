@@ -1,0 +1,174 @@
+.game-page {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Mitades ─────────────────────────────── */
+.game-half {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  padding: 12px 16px;
+  transition: filter 0.3s ease;
+}
+
+.game-half--pozo {
+  background: linear-gradient(180deg, rgba(124,58,237,0.12) 0%, rgba(124,58,237,0.03) 100%);
+  border-bottom: 1px solid rgba(124,58,237,0.15);
+}
+
+.game-half--player {
+  background: linear-gradient(0deg, rgba(245,158,11,0.1) 0%, rgba(245,158,11,0.02) 100%);
+  border-top: 1px solid rgba(245,158,11,0.12);
+}
+
+.game-half--cooldown {
+  pointer-events: none;
+}
+
+/* ── Header de cada mitad ────────────────── */
+.game-half__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.player-counts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.count-chip {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: var(--r-full);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-3);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.count-chip--me {
+  background: var(--purple-dim);
+  color: var(--purple-light);
+  border-color: rgba(124,58,237,0.3);
+}
+
+.my-cards-count {
+  font-size: 0.82rem;
+  color: var(--yellow-light);
+  font-weight: 600;
+}
+
+/* ── Card wrapper ────────────────────────── */
+.game-card-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* ── Divisor VS ──────────────────────────── */
+.game-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  position: relative;
+  z-index: 10;
+}
+
+.game-divider__badge {
+  background: linear-gradient(135deg, var(--purple), var(--yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  padding: 0 16px;
+}
+
+/* ── Cooldown overlay ────────────────────── */
+.cooldown-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(239, 68, 68, 0.18);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  border-radius: inherit;
+  pointer-events: all;
+}
+
+.cooldown-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  animation: fade-in 0.2s ease;
+}
+
+.cooldown-icon { font-size: 2rem; }
+
+.cooldown-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FCA5A5;
+}
+
+.cooldown-timer {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--red);
+  text-shadow: 0 0 20px rgba(239,68,68,0.6);
+  line-height: 1;
+  animation: pulse-number 1s ease infinite;
+}
+
+@keyframes pulse-number {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+/* ── Sin cartas ──────────────────────────── */
+.no-cards {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 8px;
+  color: var(--text-3); font-size: 0.9rem;
+}
+.no-cards span { font-size: 2rem; }
+
+/* ── Sidebar (desktop) ───────────────────── */
+.game-sidebar {
+  display: none;
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+@media (min-width: 768px) {
+  .game-sidebar { display: block; }
+}
+
+/* ── Responsive: más espacio en pantallas grandes ── */
+@media (min-height: 700px) {
+  .game-half { padding: 20px; gap: 16px; }
+}

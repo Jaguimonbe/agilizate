@@ -1,0 +1,78 @@
+.lobby-page { position: relative; overflow: hidden; }
+
+.lobby-bg {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+}
+.lobby-bg__orb {
+  position: absolute;
+  width: 600px; height: 600px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.2), transparent 70%);
+  filter: blur(60px);
+  animation: orb-pulse 6s ease-in-out infinite alternate;
+}
+@keyframes orb-pulse {
+  from { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+  to   { transform: translate(-50%,-50%) scale(1.15); opacity: 1; }
+}
+
+.lobby-content {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 20px;
+  width: 100%; max-width: 440px;
+}
+
+.lobby-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.lobby-title  { font-size: clamp(2rem,6vw,2.8rem); }
+.lobby-sub    { font-size: 0.95rem; color: var(--text-3); }
+
+/* Code card */
+.lobby-code-card {
+  width: 100%; padding: 28px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px;
+}
+.lobby-code-label {
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* Players card */
+.lobby-players-card {
+  width: 100%; padding: 20px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.lobby-players-header {
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.lobby-waiting {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px; padding: 20px;
+  color: var(--text-3);
+}
+
+/* Admin */
+.lobby-actions {
+  width: 100%; display: flex; flex-direction: column; gap: 12px;
+}
+.lobby-admin-hint {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 14px 16px;
+  background: var(--purple-dim);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: var(--r-md);
+  font-size: 0.9rem; color: var(--text-2); line-height: 1.5;
+}
+.lobby-admin-hint span { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+
+.lobby-waiting-admin {
+  width: 100%; padding: 20px;
+  display: flex; align-items: center; gap: 14px;
+  color: var(--text-2); font-size: 0.95rem;
+}

@@ -1,0 +1,114 @@
+.symbol-card {
+  position: relative;
+  width: min(300px, 80vw);
+  height: min(300px, 80vw);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.symbol-card--pozo {
+  background: radial-gradient(circle at 40% 40%, rgba(124, 58, 237, 0.35), rgba(157, 92, 255, 0.15));
+  border: 2px solid rgba(124, 58, 237, 0.5);
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.3), inset 0 0 30px rgba(124, 58, 237, 0.1);
+}
+
+.symbol-card--player {
+  background: radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.25), rgba(252, 211, 77, 0.1));
+  border: 2px solid rgba(245, 158, 11, 0.45);
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.25), inset 0 0 30px rgba(245, 158, 11, 0.08);
+}
+
+.symbol-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/* ── Símbolo base ────────────────────────── */
+.symbol {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.symbol:hover:not(.symbol--disabled) {
+  transform: translate(-50%, -50%) scale(1.25);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+.symbol:active:not(.symbol--disabled) {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.symbol--center {
+  left: 50%;
+  top: 50%;
+  width: 68px;
+  height: 68px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 5;
+}
+
+.symbol--ring {
+  /* posición dinámica vía style inline */
+}
+
+.symbol__emoji {
+  font-size: 1.8rem;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.symbol__img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ── Hit animation ───────────────────────── */
+.symbol--hit {
+  animation: hit-pulse 0.4s ease forwards;
+}
+
+@keyframes hit-pulse {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  50%  { transform: translate(-50%, -50%) scale(1.6); background: rgba(16, 185, 129, 0.4); box-shadow: 0 0 24px #10B981; }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ── Disabled (cooldown) ─────────────────── */
+.symbol--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 480px) {
+  .symbol-card {
+    width: min(260px, 75vw);
+    height: min(260px, 75vw);
+  }
+  .symbol__emoji { font-size: 1.5rem; }
+  .symbol { width: 48px; height: 48px; }
+  .symbol--center { width: 58px; height: 58px; }
+}

@@ -1,0 +1,141 @@
+.home-page {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Orbes de fondo ──────────────────────── */
+.home-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+.home-bg__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: orb-float 8s ease-in-out infinite alternate;
+}
+
+.home-bg__orb--1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--purple), transparent 70%);
+  top: -120px; left: -100px;
+  animation-duration: 9s;
+}
+
+.home-bg__orb--2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--yellow), transparent 70%);
+  bottom: -80px; right: -80px;
+  animation-duration: 11s;
+}
+
+@keyframes orb-float {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.08); }
+}
+
+/* ── Contenido ───────────────────────────── */
+.home-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* ── Logo ────────────────────────────────── */
+.home-logo {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-logo__icon {
+  font-size: 4rem;
+  filter: drop-shadow(0 0 20px var(--purple-glow));
+  animation: icon-bob 3s ease-in-out infinite;
+}
+
+@keyframes icon-bob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.home-logo__title {
+  background: linear-gradient(135deg, #fff 30%, var(--purple-light) 70%, var(--yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-logo__subtitle {
+  font-size: 0.95rem;
+  color: var(--text-3);
+  font-weight: 400;
+}
+
+/* ── Card ────────────────────────────────── */
+.home-card { width: 100%; padding: 28px; }
+
+/* ── Tabs ────────────────────────────────── */
+.home-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(0,0,0,0.3);
+  border-radius: var(--r-full);
+  margin-bottom: 24px;
+}
+
+.home-tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--text-3);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.home-tab--active {
+  background: rgba(124, 58, 237, 0.25);
+  color: var(--purple-light);
+  box-shadow: 0 0 12px var(--purple-glow);
+}
+
+/* ── Form ────────────────────────────────── */
+.home-form { display: flex; flex-direction: column; gap: 18px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+.input-code {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* ── Footer ──────────────────────────────── */
+.home-footer {
+  font-size: 0.8rem;
+  color: var(--text-3);
+  text-align: center;
+}
+.home-footer em { color: var(--text-2); font-style: normal; }

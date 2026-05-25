@@ -1,0 +1,98 @@
+.end-page { position: relative; overflow: hidden; }
+
+.end-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.end-bg__orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(100px); opacity: 0.4;
+}
+.end-bg__orb--1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--purple), transparent 70%);
+  top: -100px; left: -100px;
+  animation: orb-float 9s ease-in-out infinite alternate;
+}
+.end-bg__orb--2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--yellow), transparent 70%);
+  bottom: -100px; right: -100px;
+  animation: orb-float 11s ease-in-out infinite alternate-reverse;
+}
+@keyframes orb-float {
+  from { transform: scale(1) translate(0,0); }
+  to   { transform: scale(1.1) translate(20px, 15px); }
+}
+
+.end-content {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 28px;
+  width: 100%; max-width: 440px;
+}
+
+/* ── Resultado ───────────────────────────── */
+.end-result { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+
+.end-result__icon {
+  font-size: 5rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+  animation: icon-bob 3s ease-in-out infinite;
+}
+.end-result__icon--win  { filter: drop-shadow(0 0 30px var(--yellow-glow)); }
+.end-result__icon--lose { filter: drop-shadow(0 0 20px var(--purple-glow)); }
+
+@keyframes icon-bob {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50%     { transform: translateY(-10px) rotate(3deg); }
+}
+
+.end-result__title {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 900;
+  color: var(--text-1);
+}
+.end-result__title--win {
+  background: linear-gradient(135deg, var(--yellow), var(--yellow-light), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.end-result__sub { font-size: 1rem; color: var(--text-2); }
+
+/* ── Ranking ─────────────────────────────── */
+.end-ranking {
+  width: 100%; padding: 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.end-ranking__title { text-align: center; color: var(--text-2); }
+
+.end-ranking__list {
+  list-style: none; display: flex; flex-direction: column; gap: 8px;
+}
+
+.rank-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: var(--r-md);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.rank-item--winner {
+  background: rgba(245,158,11,0.12);
+  border-color: rgba(245,158,11,0.3);
+}
+.rank-item--me {
+  background: rgba(124,58,237,0.12);
+  border-color: rgba(124,58,237,0.3);
+}
+
+.rank-item__pos  { font-size: 1.2rem; width: 32px; text-align: center; flex-shrink: 0; }
+.rank-item__name { flex: 1; font-weight: 600; font-size: 0.95rem; }
+.rank-item__you  { font-size: 0.78rem; color: var(--purple-light); font-weight: 400; }
+.rank-item__cards { font-size: 0.85rem; color: var(--text-3); white-space: nowrap; }
+
+/* ── Acciones ────────────────────────────── */
+.end-actions {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px; width: 100%;
+}

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: agilizate-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: MONGODB_URI
+        sync: false   # Setear manualmente en el dashboard de Render
+      - key: CLIENT_URL
+        sync: false   # URL de Vercel, setear en dashboard

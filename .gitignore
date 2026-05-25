@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+.npm/
+
+# Entorno
+.env
+.env.local
+.env.production
+
+# Build
+frontend/dist/
+frontend/.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Docker
+mongo_data/
