@@ -46,13 +46,24 @@ function reducer(state, action) {
         conteos:    action.payload.conteos,
         jugadores:  action.payload.jugadores,
       };
-    case 'ACTUALIZAR_POZO':
+    case 'ACTUALIZAR_POZO': {
+      const { nuevaCartaPozo, ganadorRondaId, conteos, jugadores } = action.payload;
+      let nuevasCartas = state.misCartas;
+      
+      // Si el jugador local fue el que acertó, removemos su carta actual (la del tope)
+      if (ganadorRondaId === state.jugadorId && nuevasCartas.length > 0) {
+        nuevasCartas = [...state.misCartas];
+        nuevasCartas.pop(); 
+      }
+
       return {
         ...state,
-        pozoActual: action.payload.nuevaCartaPozo,
-        conteos:    action.payload.conteos,
-        jugadores:  action.payload.jugadores,
+        pozoActual: nuevaCartaPozo,
+        misCartas:  nuevasCartas,
+        conteos:    conteos,
+        jugadores:  jugadores,
       };
+    }
     case 'CARTA_JUGADA':
       // Remover la última carta del mazo propio
       return { ...state, misCartas: action.payload.misCartas };
