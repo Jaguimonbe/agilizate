@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { isImageUrl } from '../../utils/symbols';
 import './SymbolCard.css';
 
@@ -20,10 +21,23 @@ export default function SymbolCard({
   variant = 'player',
   disabled = false,
 }) {
-  // Layout: índice 0 al centro, 1-7 en el anillo
   const center = symbols[0];
   const ring   = symbols.slice(1);
   const total  = ring.length;
+
+  // Generar variaciones de tamaño y rotación consistentes para cada carta
+  const transforms = useMemo(() => {
+    if (!symbols || symbols.length === 0) return {};
+    return symbols.reduce((acc, sym) => {
+      // Escala aleatoria entre 0.65 y 1.35
+      const scale = 0.65 + Math.random() * 0.7;
+      // Rotación aleatoria entre 0 y 359 grados
+      const rotate = Math.floor(Math.random() * 360);
+
+      acc[sym] = { scale, rotate };
+      return acc;
+    }, {});
+  }, [symbols.join(',')]);
 
   function handleClick(sym) {
     if (!interactive || disabled) return;
@@ -44,6 +58,10 @@ export default function SymbolCard({
             onClick={() => handleClick(center)}
             disabled={!interactive || disabled}
             aria-label={`Símbolo ${center}`}
+            style={{
+              '--sym-scale': transforms[center]?.scale || 1,
+              '--sym-rotate': `${transforms[center]?.rotate || 0}deg`,
+            }}
           >
             {isImageUrl(center)
               ? <img src={center} alt="símbolo" className="symbol__img" />
@@ -65,7 +83,12 @@ export default function SymbolCard({
             <button
               key={i}
               className={`symbol symbol--ring ${isHit ? 'symbol--hit' : ''} ${disabled ? 'symbol--disabled' : ''}`}
-              style={{ left: `${x}%`, top: `${y}%` }}
+              style={{ 
+                left: `${x}%`, 
+                top: `${y}%`,
+                '--sym-scale': transforms[sym]?.scale || 1,
+                '--sym-rotate': `${transforms[sym]?.rotate || 0}deg`
+              }}
               onClick={() => handleClick(sym)}
               disabled={!interactive || disabled}
               aria-label={`Símbolo ${sym}`}

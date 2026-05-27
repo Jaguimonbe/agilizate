@@ -31,7 +31,7 @@
 /* ── Símbolo base ────────────────────────── */
 .symbol {
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(var(--sym-scale, 1)) rotate(var(--sym-rotate, 0deg));
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -47,14 +47,14 @@
 }
 
 .symbol:hover:not(.symbol--disabled) {
-  transform: translate(-50%, -50%) scale(1.25);
+  transform: translate(-50%, -50%) scale(calc(var(--sym-scale, 1) * 1.25)) rotate(var(--sym-rotate, 0deg));
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
   z-index: 10;
 }
 
 .symbol:active:not(.symbol--disabled) {
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(calc(var(--sym-scale, 1) * 1.1)) rotate(var(--sym-rotate, 0deg));
 }
 
 .symbol--center {
@@ -90,9 +90,9 @@
 }
 
 @keyframes hit-pulse {
-  0%   { transform: translate(-50%, -50%) scale(1); }
-  50%  { transform: translate(-50%, -50%) scale(1.6); background: rgba(16, 185, 129, 0.4); box-shadow: 0 0 24px #10B981; }
-  100% { transform: translate(-50%, -50%) scale(1); }
+  0%   { transform: translate(-50%, -50%) scale(var(--sym-scale, 1)) rotate(var(--sym-rotate, 0deg)); }
+  50%  { transform: translate(-50%, -50%) scale(calc(var(--sym-scale, 1) * 1.6)) rotate(var(--sym-rotate, 0deg)); background: rgba(16, 185, 129, 0.4); box-shadow: 0 0 24px #10B981; }
+  100% { transform: translate(-50%, -50%) scale(var(--sym-scale, 1)) rotate(var(--sym-rotate, 0deg)); }
 }
 
 /* ── Disabled (cooldown) ─────────────────── */
