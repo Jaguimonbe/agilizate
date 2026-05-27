@@ -17,17 +17,43 @@ const server = http.createServer(app);
 
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
+/* Orígenes permitidos: soporta múltiples entornos (local, Vercel previews, dominio custom) */
+function buildAllowedOrigins() {
+  const origins = new Set();
+
+  // Siempre permitir localhost en desarrollo
+  origins.add('http://localhost:5173');
+  origins.add('http://localhost:4173');
+
+  // CLIENT_URL puede ser lista separada por comas
+  CLIENT_URL.split(',').map(u => u.trim()).filter(Boolean).forEach(u => origins.add(u));
+
+  return [...origins];
+}
+
+const allowedOrigins = buildAllowedOrigins();
+
+function corsOriginFn(origin, callback) {
+  // Requests sin origen (ej. curl, Postman, mismo servidor)
+  if (!origin) return callback(null, true);
+  // Previews de Vercel tienen el patrón *.vercel.app
+  if (/\.vercel\.app$/.test(origin)) return callback(null, true);
+  if (allowedOrigins.includes(origin)) return callback(null, true);
+  callback(new Error(`CORS: origen no permitido → ${origin}`));
+}
+
 const io = new Server(server, {
   cors: {
-    origin: CLIENT_URL,
+    origin: corsOriginFn,
     methods: ['GET', 'POST'],
+    credentials: true,
   },
   pingTimeout:  60000,
   pingInterval: 25000,
 });
 
 /* ─── Middlewares ───────────────────────────── */
-app.use(cors({ origin: CLIENT_URL }));
+app.use(cors({ origin: corsOriginFn, credentials: true }));
 app.use(express.json());
 
 /* ─── Health check ──────────────────────────── */
