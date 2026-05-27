@@ -6,6 +6,7 @@ import { useSocket } from '../hooks/useSocket';
 import { useCooldown } from '../hooks/useCooldown';
 import SymbolCard from '../components/SymbolCard/SymbolCard';
 import PlayerList from '../components/PlayerList/PlayerList';
+import { isImageUrl } from '../utils/symbols';
 import './GamePage.css';
 
 export default function GamePage() {
@@ -18,8 +19,20 @@ export default function GamePage() {
   const [hitSymbol,   setHitSymbol]   = useState(null);
   const [shakeBoard,  setShakeBoard]  = useState(false);
   const [countdown,   setCountdown]   = useState(3);
+  const [matchAnimData, setMatchAnimData] = useState(null);
   const countdownRef  = useRef(null);
   const hasJoined     = useRef(false);
+
+  /* ── Animación de Match ──────────────────────── */
+  useEffect(() => {
+    if (state.ultimoMatch && state.ultimoMatch.simbolo) {
+      setMatchAnimData(state.ultimoMatch);
+      const timer = setTimeout(() => {
+        setMatchAnimData(null);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [state.ultimoMatch]);
 
   /* ── Conectar y solicitar estado si ya está jugando ── */
   useEffect(() => {
@@ -100,12 +113,28 @@ export default function GamePage() {
           </div>
         </div>
 
-        <div className="game-card-wrapper">
+        <div className="game-card-wrapper" style={{ position: 'relative' }}>
           <SymbolCard
             symbols={pozoActual}
             interactive={false}
             variant="pozo"
           />
+
+          {/* OVERLAY DE ANIMACIÓN DE MATCH */}
+          {matchAnimData && (
+            <div className="match-anim-overlay">
+              <div className="match-anim-content">
+                <span className="match-anim-title">{matchAnimData.ganadorNombre} acertó</span>
+                <div className="match-anim-symbol">
+                  {isImageUrl(matchAnimData.simbolo) ? (
+                    <img src={matchAnimData.simbolo} alt="Match" draggable="false" />
+                  ) : (
+                    matchAnimData.simbolo
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

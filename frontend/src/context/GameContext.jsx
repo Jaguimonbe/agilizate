@@ -25,6 +25,7 @@ const initialState = {
   // UI
   cooldown:     false,
   conectado:    false,
+  ultimoMatch:  null, // { simbolo, ganadorId, ganadorNombre, timestamp }
 };
 
 function reducer(state, action) {
@@ -50,6 +51,10 @@ function reducer(state, action) {
       const { nuevaCartaPozo, ganadorRondaId, conteos, jugadores } = action.payload;
       let nuevasCartas = state.misCartas;
       
+      // Encontrar el símbolo que hizo match (intersección entre pozo viejo y nuevo)
+      const matchedSymbol = state.pozoActual.find(sym => nuevaCartaPozo.includes(sym));
+      const ganador = jugadores.find(j => j.id === ganadorRondaId);
+
       // Si el jugador local fue el que acertó, removemos su carta actual (la del tope)
       if (ganadorRondaId === state.jugadorId && nuevasCartas.length > 0) {
         nuevasCartas = [...state.misCartas];
@@ -62,6 +67,12 @@ function reducer(state, action) {
         misCartas:  nuevasCartas,
         conteos:    conteos,
         jugadores:  jugadores,
+        ultimoMatch: {
+          simbolo: matchedSymbol,
+          ganadorId: ganadorRondaId,
+          ganadorNombre: ganador ? ganador.nombre : 'Alguien',
+          timestamp: Date.now()
+        }
       };
     }
     case 'CARTA_JUGADA':

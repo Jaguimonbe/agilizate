@@ -153,8 +153,57 @@
   color: var(--text-3); font-size: 0.9rem;
 }
 .no-cards span { font-size: 2rem; }
+/* ── Animación de Match (Pozo) ────────────────────────── */
+.match-anim-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  pointer-events: none;
+}
 
+.match-anim-content {
+  background: rgba(15, 15, 26, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  padding: 16px 24px;
+  border-radius: var(--r-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: match-pop 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  box-shadow: 0 10px 40px rgba(124, 58, 237, 0.3);
+}
 
+.match-anim-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--yellow-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.match-anim-symbol {
+  font-size: 4.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
+}
+.match-anim-symbol img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: contain;
+}
+
+@keyframes match-pop {
+  0% { transform: scale(0.5) translateY(20px); opacity: 0; }
+  15% { transform: scale(1.1) translateY(0); opacity: 1; }
+  25% { transform: scale(1) translateY(0); opacity: 1; }
+  80% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(0.8) translateY(-20px); opacity: 0; }
+}
 
 /* ── Responsive: diseño lado a lado para pantallas anchas ── */
 @media (min-width: 900px) and (orientation: landscape) {
