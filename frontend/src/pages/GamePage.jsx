@@ -150,11 +150,6 @@ export default function GamePage() {
           )}
         </div>
       </section>
-
-      {/* ── Sidebar mini (desktop) ─────────────── */}
-      <aside className="game-sidebar">
-        <PlayerList jugadores={state.jugadores} miId={jugadorId} />
-      </aside>
     </div>
   );
 }
