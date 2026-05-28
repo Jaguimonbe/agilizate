@@ -23,15 +23,12 @@ export default function SymbolCard({
   variant = 'player',
   disabled = false,
 }) {
-  // Generar variaciones de escala y rotación consistentes por carta
+  // Solo rotación aleatoria — el tamaño es uniforme (llena la celda)
   const transforms = useMemo(() => {
     if (!symbols || symbols.length === 0) return {};
     return symbols.reduce((acc, sym) => {
-      // Escala aleatoria entre 0.6 y 1.4
-      const scale = 0.6 + Math.random() * 0.8;
-      // Rotación aleatoria entre 0 y 359 grados
       const rotate = Math.floor(Math.random() * 360);
-      acc[sym] = { scale, rotate };
+      acc[sym] = { rotate };
       return acc;
     }, {});
   }, [symbols.join(',')]); // eslint-disable-line
@@ -59,7 +56,7 @@ export default function SymbolCard({
             <span
               className="symbol__inner"
               style={{
-                transform: `scale(${t.scale}) rotate(${t.rotate}deg)`,
+                transform: `rotate(${(transforms[sym] || { rotate: 0 }).rotate}deg)`,
               }}
             >
               {isImageUrl(sym)

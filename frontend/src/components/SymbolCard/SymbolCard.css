@@ -1,14 +1,13 @@
-/* ── Tarjeta principal (rectangular, llena el ancho) ── */
+/* ── Tarjeta principal: grid fijo 2×4 ── */
 .symbol-card {
   width: 100%;
   height: 100%;
   border-radius: 16px;
   display: grid;
-  /* Columnas adaptables: mínimo 80px cada celda */
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  grid-auto-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
   gap: 6px;
-  padding: 10px;
+  padding: 8px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -25,20 +24,20 @@
   box-shadow: 0 0 40px rgba(245, 158, 11, 0.2), inset 0 0 30px rgba(245, 158, 11, 0.06);
 }
 
-/* ── Botón de cada símbolo ── */
+/* ── Botón de cada símbolo: ocupa toda la celda ── */
 .symbol {
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  padding: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
   transition: background 0.15s ease, box-shadow 0.15s ease;
-  min-width: 0;
-  min-height: 0;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .symbol:hover:not(.symbol--disabled) {
@@ -48,37 +47,34 @@
 }
 
 .symbol:active:not(.symbol--disabled) {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.22);
 }
 
-/* ── Wrapper interno (lleva la rotación/escala visual) ── */
+/* ── Wrapper interno: aplica solo la rotación ── */
 .symbol__inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Sin tamaño fijo — crece para llenar el botón */
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   transition: transform 0.15s ease;
 }
 
-/* ── Emoji ── */
+/* ── Emoji: llena el wrapper ── */
 .symbol__emoji {
-  /* Tamaño relativo al botón (que es relativo al card) */
-  font-size: clamp(1.4rem, 5vw, 2.8rem);
+  font-size: clamp(2rem, 6vw, 3.5rem);
   line-height: 1;
   user-select: none;
   pointer-events: none;
   display: block;
 }
 
-/* ── Imagen ── */
+/* ── Imagen: llena el wrapper ── */
 .symbol__img {
-  /* Llena el botón, respetando aspecto */
   width: 100%;
   height: 100%;
-  max-width: 64px;
-  max-height: 64px;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   pointer-events: none;
 }
@@ -101,22 +97,11 @@
   pointer-events: none;
 }
 
-/* ── Responsive ── */
-@media (max-width: 480px) {
-  .symbol-card {
-    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
-    gap: 4px;
-    padding: 8px;
-  }
-  .symbol__emoji { font-size: clamp(1.2rem, 6vw, 2rem); }
-}
-
+/* ── Landscape: un poco más de gap y padding ── */
 @media (min-width: 900px) and (orientation: landscape) {
   .symbol-card {
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
     gap: 8px;
-    padding: 14px;
+    padding: 12px;
   }
-  .symbol__emoji { font-size: clamp(1.8rem, 3.5vw, 3rem); }
-  .symbol__img   { max-width: 80px; max-height: 80px; }
+  .symbol__emoji { font-size: clamp(2.5rem, 4vw, 4rem); }
 }
