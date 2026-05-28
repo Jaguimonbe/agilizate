@@ -98,10 +98,15 @@
   pointer-events: none;
 }
 
-/* ── Landscape: más gap y padding, sin cambio de font-size (vh ya funciona bien) ── */
-@media (min-width: 900px) and (orientation: landscape) {
+/* ── Landscape (celulares + tablets + PC): más gap y font-size mayor
+   porque en landscape el card ocupa el 100% de la altura de pantalla
+   (layout lado a lado), y las filas son ~2× más altas que en portrait. ── */
+@media (min-width: 600px) and (orientation: landscape) {
   .symbol-card {
     gap: 8px;
-    padding: 12px;
+    padding: 10px;
   }
+  /* En landscape con layout 1× card/pantalla: cell_height ≈ (100vh - header - gaps) / 4 ≈ 22vh */
+  .symbol__emoji { font-size: clamp(3rem, 18vh, 8rem); }
+  .symbol__img   { max-height: 18vh; }
 }
