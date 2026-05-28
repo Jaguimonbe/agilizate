@@ -23,12 +23,12 @@ export default function SymbolCard({
   variant = 'player',
   disabled = false,
 }) {
-  // Solo rotación aleatoria — el tamaño es uniforme (llena la celda)
+  // Solo giros múltiplos de 90° para que el ícono no desborde su celda
   const transforms = useMemo(() => {
     if (!symbols || symbols.length === 0) return {};
+    const angles = [0, 90, 180, 270];
     return symbols.reduce((acc, sym) => {
-      const rotate = Math.floor(Math.random() * 360);
-      acc[sym] = { rotate };
+      acc[sym] = { rotate: angles[Math.floor(Math.random() * angles.length)] };
       return acc;
     }, {});
   }, [symbols.join(',')]); // eslint-disable-line
@@ -56,7 +56,7 @@ export default function SymbolCard({
             <span
               className="symbol__inner"
               style={{
-                transform: `rotate(${(transforms[sym] || { rotate: 0 }).rotate}deg)`,
+                transform: `rotate(${(transforms[sym]?.rotate ?? 0)}deg)`,
               }}
             >
               {isImageUrl(sym)
