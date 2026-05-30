@@ -119,22 +119,6 @@ export default function GamePage() {
             interactive={false}
             variant="pozo"
           />
-
-          {/* OVERLAY DE ANIMACIÓN DE MATCH */}
-          {matchAnimData && (
-            <div className="match-anim-overlay">
-              <div className="match-anim-content">
-                <span className="match-anim-title">{matchAnimData.ganadorNombre} acertó</span>
-                <div className="match-anim-symbol">
-                  {isImageUrl(matchAnimData.simbolo) ? (
-                    <img src={matchAnimData.simbolo} alt="Match" draggable="false" />
-                  ) : (
-                    matchAnimData.simbolo
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
@@ -142,6 +126,22 @@ export default function GamePage() {
       <div className="game-divider">
         <span className="game-divider__badge">VS</span>
       </div>
+
+      {/* OVERLAY DE ANIMACIÓN DE MATCH (Centrado en toda la pantalla) */}
+      {matchAnimData && (
+        <div className="match-anim-overlay">
+          <div className="match-anim-content">
+            <span className="match-anim-title">{matchAnimData.ganadorNombre} acertó</span>
+            <div className="match-anim-symbol">
+              {isImageUrl(matchAnimData.simbolo) ? (
+                <img src={matchAnimData.simbolo} alt="Match" draggable="false" />
+              ) : (
+                matchAnimData.simbolo
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── MITAD INFERIOR: Mi Carta ──────────── */}
       <section className={`game-half game-half--player ${isCooldown ? 'game-half--cooldown' : ''}`}>
