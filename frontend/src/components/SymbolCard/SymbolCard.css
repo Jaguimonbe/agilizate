@@ -41,6 +41,12 @@
   overflow: hidden; /* recorta cualquier desborde durante la rotación */
 }
 
+/* Evitar que el navegador aplique opacidad o color transparente al botón desactivado (Pozo) */
+.symbol:disabled {
+  color: #ffffff;
+  opacity: 1;
+}
+
 .symbol:hover:not(.symbol--disabled) {
   background: rgba(255, 255, 255, 0.14);
   box-shadow: 0 0 16px rgba(255, 255, 255, 0.18);
@@ -92,7 +98,7 @@
 }
 
 /* ── Disabled (cooldown) ── */
-.symbol--disabled {
+.symbol.symbol--disabled {
   cursor: not-allowed;
   opacity: 0.45;
   pointer-events: none;
