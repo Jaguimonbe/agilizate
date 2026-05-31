@@ -121,7 +121,7 @@ export default function HomePage() {
         <div className="home-logo">
           <div className="home-logo__icon">🎴</div>
           <h1 className="home-logo__title">Agilízate</h1>
-          <p className="home-logo__subtitle">El juego de agilidad mental en tiempo real</p>
+          <p className="home-logo__subtitle">Juego de agilidad mental</p>
         </div>
 
         {/* Card */}
