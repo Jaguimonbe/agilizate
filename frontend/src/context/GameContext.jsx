@@ -38,6 +38,15 @@ function reducer(state, action) {
       return { ...state, ...action.payload, estado: action.payload.estado ?? 'ESPERANDO' };
     case 'JUGADORES_UPDATE':
       return { ...state, jugadores: action.payload };
+    case 'ESTADO_RESTAURADO':
+      return {
+        ...state,
+        estado:     action.payload.estado,
+        pozoActual: action.payload.pozoActual || [],
+        misCartas:  action.payload.misCartas || [],
+        conteos:    action.payload.conteos || {},
+        jugadores:  action.payload.jugadores || [],
+      };
     case 'JUEGO_INICIADO':
       return {
         ...state,
@@ -89,6 +98,19 @@ function reducer(state, action) {
         ganadorId:    action.payload.ganadorId,
         ganadorNombre: action.payload.ganadorNombre,
         ranking:      action.payload.ranking,
+      };
+    case 'JUEGO_REINICIADO':
+      return {
+        ...state,
+        estado:       'ESPERANDO',
+        pozoActual:   [],
+        misCartas:    [],
+        conteos:      {},
+        ganadorId:    null,
+        ganadorNombre: null,
+        ranking:      [],
+        ultimoMatch:  null,
+        cooldown:     false
       };
     case 'RESET':
       return { ...initialState };

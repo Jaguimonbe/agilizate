@@ -39,7 +39,7 @@ export function useSocket() {
     });
 
     socket.on('estado_restaurado', payload => {
-      dispatch({ type: 'JUEGO_INICIADO', payload });
+      dispatch({ type: 'ESTADO_RESTAURADO', payload });
     });
 
     socket.on('jugador_unido', ({ jugadores }) => {
@@ -68,6 +68,10 @@ export function useSocket() {
 
     socket.on('fin_partida', payload => {
       dispatch({ type: 'FIN_PARTIDA', payload });
+    });
+
+    socket.on('juego_reiniciado', () => {
+      dispatch({ type: 'JUEGO_REINICIADO' });
     });
 
     listenersAttached.current = true;

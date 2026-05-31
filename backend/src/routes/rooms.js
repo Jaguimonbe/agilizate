@@ -106,6 +106,7 @@ router.post('/:codigo/alistar', async (req, res) => {
     if (jugadorIds.length < 2) return res.status(400).json({ error: 'Se necesitan al menos 2 jugadores.' });
 
     // Generar mazo con n=7 → 57 cartas, 8 símbolos/carta
+    // TODO: Sólo por probar es que uso 7, en el futuro debería ser un parámetro
     const n = 7;
     const { deck } = prepareDeck(n, recursos);
     const shuffledDeck = shuffle([...deck]);

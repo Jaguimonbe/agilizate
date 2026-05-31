@@ -1,6 +1,7 @@
 'use strict';
 
 const { getRoom, setRoom, deleteRoom } = require('../state/gameState');
+const Room = require('../models/Room');
 
 /* ─── Helpers ─────────────────────────────────── */
 function getPublicPlayerList(room) {
@@ -148,6 +149,8 @@ module.exports = function registerHandlers(io, socket) {
       // ¿Ganó?
       if (mazo.length === 0) {
         room.estado = 'FINALIZADA';
+        Room.updateOne({ codigoSala: code }, { $set: { estado: 'FINALIZADA' } }).catch(console.error);
+        
         io.to(code).emit('fin_partida', {
           ganadorId: jugadorId,
           ganadorNombre: room.jugadores[jugadorId]?.nombre,
@@ -169,9 +172,36 @@ module.exports = function registerHandlers(io, socket) {
     }
   });
 
+  /* ── reiniciar_partida ───────────────────────── */
+  socket.on('reiniciar_partida', ({ codigoSala }) => {
+    const code = codigoSala?.toUpperCase();
+    const room = getRoom(code);
+    if (!room) return;
+
+    room.estado = 'ESPERANDO';
+    room.pozoActual = [];
+    room.mazosJugadores = {};
+    Room.updateOne({ codigoSala: code }, { $set: { estado: 'ESPERANDO', pozoActual: null, mazosJugadores: {} } }).catch(console.error);
+    
+    io.to(code).emit('juego_reiniciado');
+  });
+
   /* ── abandonar_partida ───────────────────────── */
   socket.on('abandonar_partida', ({ codigoSala, jugadorId }) => {
-    handleLeave(io, socket, codigoSala?.toUpperCase(), jugadorId);
+    const code = codigoSala?.toUpperCase();
+    const room = getRoom(code);
+    if (!room) return;
+
+    if (room.jugadores[jugadorId]) {
+      delete room.jugadores[jugadorId];
+      delete room.mazosJugadores[jugadorId];
+    }
+    
+    socket.leave(code);
+    io.to(code).emit('jugador_desconectado', {
+      jugadorId,
+      jugadores: getPublicPlayerList(room),
+    });
   });
 
   /* ── disconnect ──────────────────────────────── */
