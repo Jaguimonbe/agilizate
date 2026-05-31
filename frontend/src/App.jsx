@@ -5,6 +5,7 @@ import HomePage    from './pages/HomePage';
 import LobbyPage   from './pages/LobbyPage';
 import GamePage    from './pages/GamePage';
 import EndGamePage from './pages/EndGamePage';
+import PracticePage from './pages/PracticePage';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/lobby/:codigo" element={<LobbyPage />} />
           <Route path="/game/:codigo"  element={<GamePage />} />
           <Route path="/fin/:codigo"   element={<EndGamePage />} />
+          <Route path="/practice"      element={<PracticePage />} />
           <Route path="*"              element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

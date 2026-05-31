@@ -1,0 +1,102 @@
+/* Heredamos el grid de .game-page, por lo que no es necesario redefinir display */
+.practice-page {
+  background-color: var(--bg-dark);
+}
+
+.practice-exit {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 10;
+}
+
+/* Divisor central con estadísticas */
+.practice-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 40px;
+  position: relative;
+  z-index: 10;
+  background: rgba(26, 26, 46, 0.4);
+  backdrop-filter: blur(4px);
+  padding: 0 16px;
+  border-top: 1px solid rgba(124, 58, 237, 0.2);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.practice-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.practice-stat-pill .stat-icon {
+  font-size: 1.1rem;
+}
+
+.practice-stat-pill .stat-value {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--yellow-light);
+  letter-spacing: 0.5px;
+}
+
+.practice-results {
+  margin: 25px 0;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.practice-score {
+  font-size: 2.5rem;
+  color: var(--purple-light);
+  margin: 10px 0;
+  font-weight: 800;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 600px) {
+  .practice-divider {
+    gap: 10px;
+    padding: 0 8px;
+  }
+  
+  .practice-stat-pill {
+    padding: 4px 8px;
+    gap: 6px;
+  }
+  
+  .practice-stat-pill .stat-value {
+    font-size: 0.9rem;
+  }
+  
+  .practice-stat-pill .stat-icon {
+    font-size: 1rem;
+  }
+}
+
+/* Responsividad para pantallas landscape y grandes */
+@media (min-width: 600px) and (orientation: landscape) {
+  .practice-divider {
+    height: 100%;
+    width: 80px;
+    flex-direction: column;
+    border-top: none;
+    border-bottom: none;
+    border-left: 1px solid rgba(124, 58, 237, 0.2);
+    border-right: 1px solid rgba(124, 58, 237, 0.2);
+  }
+  
+  .practice-stat-pill {
+    flex-direction: column;
+    padding: 12px 4px;
+    gap: 4px;
+  }
+}

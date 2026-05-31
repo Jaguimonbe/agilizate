@@ -142,6 +142,13 @@ export default function HomePage() {
             >
               Crear sala
             </button>
+            <button
+              id="tab-practice"
+              className={`home-tab ${tab === 'practice' ? 'home-tab--active' : ''}`}
+              onClick={() => setTab('practice')}
+            >
+              Práctica
+            </button>
           </div>
 
           {/* Formulario Unirse */}
@@ -198,6 +205,28 @@ export default function HomePage() {
                 {loading ? <span className="spinner" /> : '✨ Crear nueva sala'}
               </button>
             </form>
+          )}
+
+          {/* Opciones Práctica */}
+          {tab === 'practice' && (
+            <div className="home-form">
+              <p style={{ textAlign: 'center', marginBottom: '20px', color: 'var(--text-2)' }}>
+                Juega en solitario para mejorar tu agilidad visual.
+              </p>
+              <button 
+                className="btn btn-primary btn-full btn-lg" 
+                style={{ marginBottom: '15px' }}
+                onClick={() => navigate('/practice?mode=time')}
+              >
+                ⏳ 1 Minuto (Mayor cantidad de match)
+              </button>
+              <button 
+                className="btn btn-secondary btn-full btn-lg" 
+                onClick={() => navigate('/practice?mode=deck')}
+              >
+                🃏 Mazo Completo (Duración total)
+              </button>
+            </div>
           )}
         </div>
 
