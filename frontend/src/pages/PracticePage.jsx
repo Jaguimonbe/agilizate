@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { prepareDeck } from '../utils/deckEngine';
+import { prepareDeck, shuffle } from '../utils/deckEngine';
 import SymbolCard from '../components/SymbolCard/SymbolCard';
 import { isImageUrl } from '../utils/symbols';
 import './PracticePage.css';
@@ -28,9 +28,11 @@ export default function PracticePage() {
 
   function iniciarMazo() {
     const { deck } = prepareDeck(7); // Mazo completo de 57 cartas
-    const nuevoPozo = deck.pop();
+    const shuffledDeck = shuffle([...deck]); // ¡Mezclar el mazo de cartas!
+    
+    const nuevoPozo = shuffledDeck.pop();
     setPozoActual(nuevoPozo);
-    setMisCartas(deck);
+    setMisCartas(shuffledDeck);
     setPuntaje(0);
     setIsGameOver(false);
     setTime(mode === 'time' ? 60 : 0);
@@ -81,9 +83,11 @@ export default function PracticePage() {
       // Si es el modo 'time' y se acaban las cartas antes del minuto, regeneramos el mazo
       else if (mode === 'time' && misCartas.length === 0) {
         const { deck } = prepareDeck(7);
-        const nuevoPozo = deck.pop();
+        const shuffledDeck = shuffle([...deck]);
+        
+        const nuevoPozo = shuffledDeck.pop();
         setPozoActual(nuevoPozo);
-        setMisCartas(deck);
+        setMisCartas(shuffledDeck);
       }
     } else {
       // ERROR
